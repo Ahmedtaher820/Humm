@@ -17,5 +17,21 @@ export default defineNuxtConfig({
                 }
             ]
         }
-    }
+    },
+    css:[
+        'bootstrap/dist/css/bootstrap.min.css',
+        '@/assets/css/style.css'
+    ],
+    script:[
+        {src: 'bootstrap/dist/js/bootstrap.bundle.min.js'}
+    ],
+    vite: {
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    additionalData: '@use "@/assets/css/scss/global.scss" as *;',
+                },
+            },
+        },
+    },
 })

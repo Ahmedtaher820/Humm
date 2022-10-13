@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+// import vraiables
+@import "./helpers/variables";
+// global syles
+*{
+padding: 0px;
+margin: 0px;
+box-sizing: border-box;
+font-family: 'Roboto', sans-serif;
+}
+// center items 
+.center-items{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+// make items space between 
+.space-between{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+// global button
+.main-btn
+{
+    width: 157px;
+    height: 51px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #000;
+    box-shadow: $main-box-shadow;
+    background-color: $second-color;
+    transition: .5s;
+    &:hover{
+        box-shadow: none;
+    }
+}
+// class for transtion between pages
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
