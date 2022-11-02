@@ -1,1 +1,49 @@
-/*# sourceMappingURL=style.css.map */
+.header .logo img {
+  width: 180px;
+}
+.header .header-top {
+  height: 120px;
+}
+.header .header-top ul li .head-circle {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #000;
+  border-radius: 50%;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+.header .header-top ul li .head-circle img {
+  width: 20px;
+  height: 20px;
+}
+.header .header-top ul li .head-circle span {
+  transition: all 0.3s ease-in-out;
+  font-weight: 600;
+}
+.header .header-top ul li .head-circle .en {
+  font-size: 14px;
+}
+.header .header-top ul li:hover {
+  cursor: pointer;
+}
+.header .header-top ul li:hover span {
+  color: rgba(255, 0, 0, 0.517);
+}
+.header .header-top ul li:hover .head-circle {
+  background-color: #000;
+  border: 1px solid #fff;
+}
+.header .header-top ul li:hover svg path {
+  fill: #fff;
+}
+.header .menu-nav {
+  height: 60px;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+.header .menu-nav ul li {
+  padding: 0em 1em;
+}
+.header .menu-nav ul li a {
+  color: #000;
+}/*# sourceMappingURL=style.css.map */

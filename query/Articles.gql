@@ -1,0 +1,22 @@
+query GetArticles {
+  Articles {
+    user_created {
+      first_name
+      last_name
+    }
+    type
+    slug
+    category {
+      translations {
+        title
+      }
+    }
+    translations {
+      title
+      cover {
+        id
+      }
+    }
+    date_created
+  }
+}
