@@ -25,7 +25,7 @@ div(class="container header")
       ul.list-unstyled.d-flex.mb-0
           li(v-for="(list,ind) in navLists"  :key="ind")
               img(:src="`/images/HeaderIcons/${list.srcName}.svg`")
-              NuxtLink(to="/").ms-1.fw-bold {{list.title}}  
+              NuxtLink(:to="list.pageLink").ms-1.fw-bold {{list.title}}  
          
 
 </template>
@@ -34,23 +34,28 @@ div(class="container header")
 const navLists = ref([
   {
     srcName:'menu',
-    title:'Menu'
+    title:'Menu',
+    pageLink:'menu'
   },
   {
     srcName:'food',
-    title:'Food'
+    title:'Food',
+    pageLink:'food'
   },
   {
     srcName:'show',
-    title:'Show'
+    title:'Show',
+    pageLink:'shows'
   },
   {
     srcName:'read',
-    title:'Read'
+    title:'Read',
+    pageLink:'read'
   },
   {
     srcName:'shop',
-    title:'Shop'
+    title:'Shop',
+    pageLink:'shop'
   },
 ])
 </script>

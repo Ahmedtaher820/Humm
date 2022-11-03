@@ -1,13 +1,5 @@
-<template>
-  
+<template lang="pug">
+div
+    h1 welcome    
 </template>
-
-<script>
-export default {
-
-}
-</script>
-
-<style>
-
-</style>
+<script setup lang="ts"></script>

@@ -1,6 +1,6 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-    modules: ['nuxt-graphql-client'],
+    // modules: ['nuxt-graphql-client'],
     // head(){
     //     return{
     //         titleTemplate: `$s - Humm Page`,
@@ -19,6 +19,15 @@ export default defineNuxtConfig({
     //         ]
     //     }
     // },
+    modules: ['@nuxtjs/apollo'],
+    apollo: {
+        clients: {
+        default: {
+            httpEndpoint: 'https://board.humm.world/graphql'
+        }
+        },
+    },
+
     css:[
         'bootstrap/dist/css/bootstrap.min.css',
         '@/assets/css/style.css'
@@ -27,11 +36,6 @@ export default defineNuxtConfig({
     script:[
         {src: 'bootstrap/dist/js/bootstrap.bundle.min.js'}
     ],
-      runtimeConfig: {
-        public: {
-          GQL_HOST: 'https://lucasconstantino.github.io/graphiql-online/' // overwritten by process.env.GQL_HOST
-        }
-      },
     vite: {
         css: {
             preprocessorOptions: {
