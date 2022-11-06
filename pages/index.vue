@@ -6,18 +6,18 @@ div.index
                 h2 A world for food and its lovers
                 button.main-btn Know more
             .bg 
-    section.articles
+    section.articles.mb-2x.mt-2x
         .container
-            h2.mb-2x.mt-2x Food
+            h2.mb-2x Food
             .row.under-line.main-pb
                 .col-lg-4(v-for="{user_created , slug,type,category,translations,date_created} in firstArtBlog" :key="art.id" )
-                  HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category",:translations="translations" , :date_created="date_created" )
+                  HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category",:translations="translations" , :date_created="date_created" :isOneItem="false" :moreItem="true")
             .row.main-pt.main-pb               
                 .col-lg-4
                     div(v-for="{user_created , slug,type,category,translations,date_created} in firstCol")
-                      HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category",:translations="translations" , :date_created="date_created" )
+                      HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category",:translations="translations" , :date_created="date_created" :isOneItem="false" :moreItem="true")
                 .col-lg-4.position-relative
-                    .article-content.alone.d-flex.flex-column.gap-3.p-3.position-relative.position-lg-absolute.main-trans(v-for="{user_created , slug,type,category,translations,date_created} in secondCol" :key="art.id" )
+                    .article-content.alone.d-flex.flex-column.gap-3.p-3.position-relative.position-lg-absolute.main-trans(v-for="{user_created , slug,type,category,translations,date_created} in secondCol" :key="art.id")
                         div
                           img(:src="`https://board.humm.world/assets/${translations[0].cover.id}?fit=cover&quality=80`").art-img.main-trans
                         .content.d-flex.flex-column.gap-3
@@ -30,22 +30,25 @@ div.index
                               span.date-text.fw-light 2 April 2022                                                
 
                 .col-lg-4
-                    //- HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category",:translations="translations" , :date_created="date_created"  )
                     .div(v-for="{user_created , slug,type,category,translations,date_created} in lastCol")
-                      HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category",:translations="translations" , :date_created="date_created" )
+                      HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category",:translations="translations" , :date_created="date_created" :isOneItem="false" :moreItem="true")
     section 
-      .container 
-        img(src="../public/images/HomeIcons/group.png")
-    section 
-      .container 
-        .row.main-pb
-          .head.d-flex.justify-content-between.mb-2x.mt-2x.align-items-center
-              h2 Read
-              MainLink
-          .col-lg-4(v-for="{user_created , slug,type,category,translations,date_created} in firstArtBlog" :key="art.id" )
-              HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category",:translations="translations" , :date_created="date_created" ) 
+      .container
+        .img-contain.position-relative 
+    section.main-pb
+      HomeCompReadArt(:secondCol="secondCol" :firstCol="firstCol")
+    section.auto-line.mb-2x.mt-2x
+      HomeCompAdSlider
+    section.press.mb-2x.mt-2x
+      HomeCompPress(:firstArtBlog="firstArtBlog")
+    section.shows.mb-2x.mt-3x
+      div.shows.py-5
+        HomeCompShows(:firstArtBlog="firstArtBlog" :activeShow="secondCol" )
+    section.press.mb-2x.mt-2x
+      HomeCompShopsShop(:shops="shops")
 </template>
 <script setup lang="ts">
+import ArticleResult from "../types/interfaces";
 definePageMeta({
   title: "Home",
   meta: [
@@ -57,24 +60,7 @@ definePageMeta({
 });
 
 const articleState = useArticles();
-type ArticleResult = {
-  id: string;
-  user_created: {
-    first_name: string;
-    last_name: string;
-  };
-  type: string;
-  slug: string;
-  category: {
-    translations: {
-      title: string;
-    }[];
-  };
-  translations: {
-    title: string;
-  }[];
-  date_created: string;
-}[];
+
 const query = gql`
   query GetArticle($limit: Int) {
     Article(limit: $limit) {
@@ -111,12 +97,19 @@ if (articleState.value.length == 0) {
   }
 }
 const firstArtBlog = [...articleState.value.slice(0, 3)];
-console.log(firstArtBlog)
-// to handle date in design with defference cols
-const firstCol = [...articleState.value.slice(3, 5)]
-const secondCol = [...articleState.value.slice(5, 6)]
-
-const lastCol = articleState.value.slice(6, 8)
+[1, 2, 34, 5];
+const firstCol = computed(() => {
+  return [...articleState.value.slice(3, 5)];
+});
+const secondCol = computed(() => {
+  return [...articleState.value.slice(5, 6)];
+});
+const lastCol = computed(() => {
+  return [...articleState.value.slice(6, 8)];
+});
+const shops = computed(() => {
+  return [...articleState.value.slice(2, 6)];
+});
 </script>
 <style lang="scss">
 .index {
@@ -147,11 +140,7 @@ const lastCol = articleState.value.slice(6, 8)
     }
   }
   .articles {
-    h2 {
-      margin-bottom: 30px;
-    }
     .under-line {
-     
       position: relative;
       &::after {
         content: "";
@@ -163,11 +152,42 @@ const lastCol = articleState.value.slice(6, 8)
         background-color: $main-color;
       }
     }
-        
+    .article-content {
+      &.alone {
+        box-shadow: 3px 4px 0px 0px $main-color;
+        border: 1px solid $main-color;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        img.art-img {
+          width: 100%;
+        }
+        &:hover {
+          background-color: $main-color;
+          color: $second-color;
+          box-shadow: none;
+        }
+        &:hover svg {
+          fill: $second-color;
+        }
+      }
     }
-  
+  }
+  .img-contain {
+    height: 362px;
+    background: url("../public/images/HomeIcons/group.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  .shows{
+    background-color: $main-color;
+    h2{
+      color: $second-color;
+    }
+  }
 }
-.cct{
+.cct {
   // max-width: 1320px;
   width: 1320px;
   height: 360px;
