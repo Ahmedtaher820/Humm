@@ -1,33 +1,62 @@
 <template lang="pug">
-.container.mb-2x.mt-2x
+.container.mb-2x.mt-2x.mx-auto
     .head.d-flex.justify-content-between.align-items-center.mb-2x
-        h2 Shows
-        img(src="/images/HomeIcons/mainBtn2.svg").cursor-p
+        h2.main-head البرامج
+        button.main-btn اعرف المزيد
     .row
-        .col-md-6(v-for="{user_created , slug,type,category,translations,date_created} in activeShow").text-light
-            HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category",:translations="translations" , :date_created="date_created" :isOneItem="true" :moreItem="false" :userInfo="true" :show="true")
-            
-        .col-md-6
-            div(v-for="{user_created , slug,type,category,translations,date_created} in firstArtBlog").mb-2.text-light.show-content
-                HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category",:translations="translations" , :date_created="date_created" :isOneItem="false" :moreItem="true" :userInfo="true")
-
+        .col-lg-6(v-for="show in shows" :key="show.id")
+            HomeCompShowDisplay(:item="show")
 </template>
-        
+
 <script lang="ts" setup>
-        defineProps({
-            firstArtBlog:{
-                type:Array,
-                required:true
-            },
-            activeShow:{
-                type:Array,
-                required:true
-            }
-        })
+const query = gql`
+query getShows($lang: String, $offset: Int, $limit: Int) {
+    shows(
+      filter: {
+        translations: { languages_code: { code: { _eq: $lang } } }
+      }
+      offset: $offset
+      limit: $limit
+      sort: "date_created"
+    ) {
+      id
+      slug
+      user_created {
+        first_name
+        last_name
+      }
+      translations(filter: { languages_code: { code: { _eq: $lang } } }) {
+        title
+        description
+        cover {
+          id
+        }
+      }
+      date_created
+      
+    }
+  }
+`;
+const variable = {lang:"ar-EG",  offset: 0,limit:4};
+const shows = useShows();
+if (shows.value.length === 0) {
+  const { data } = await useAsyncQuery(query, variable);
+  data.value.shows.forEach((e)=>{
+    console.log(e)
+    shows.value.push(e)
+  })
+}
+
 </script>
-<style lang="scss">
-.show-content{
-    
-    
+<style lang="scss" scoped>
+.main-btn {
+  box-shadow: 3px 3px 0px rgba(255, 255, 255) !important;
+  color: $main-color;
+  background-color:$second-color;
+  &:hover{
+    color: $second-color;
+    background-color:$main-color;
+    border: 1px solid $second-color;
+  }
 }
 </style>

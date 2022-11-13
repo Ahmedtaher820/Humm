@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 .header .logo img {
   width: 180px;
 }
@@ -45,15 +44,31 @@
 .header .menu-nav ul li {
   padding: 0em 1em;
 }
+.header .menu-nav ul li:hover span {
+  color: red;
+}
+.header .menu-nav ul li:hover a {
+  color: red;
+}
+.header .menu-nav ul li img {
+  width: 32px;
+  height: 32px;
+}
 .header .menu-nav ul li a {
   color: #000;
+  font-size: 16px;
 }
 
 * {
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  font-family: sans-serif, "Tahoma";
+}
+
+html {
+  font-family: "HelveticaNeueLTArabic", sans-serif;
+  overflow-x: hidden;
 }
 
 .center-items {
@@ -77,15 +92,19 @@
   background-color: #fff;
   padding: 0.5em 1.5em;
   transition: 0.5s;
+  cursor: pointer;
 }
 .main-btn:hover {
   box-shadow: none;
 }
 
+ul {
+  margin-bottom: 0px;
+}
+
 .article-content.alone {
   box-shadow: 3px 4px 0px 0px rgb(0, 0, 0);
   border: 1px solid #333;
-  padding: 20px;
 }
 .article-content.alone:hover {
   background-color: #000;
@@ -114,16 +133,6 @@ a {
   text-decoration: none;
 }
 
-h2 {
-  max-width: 9em;
-  font-size: 3rem;
-}
-@media (max-width: 768px) {
-  h2 {
-    font-size: 2.6rem;
-  }
-}
-
 .mt-2x-l {
   margin-top: calc(1.2875rem + 3.49412vw);
 }
@@ -140,6 +149,10 @@ h2 {
   margin-top: 40px;
 }
 
+.mb-3x {
+  margin-bottom: 40px;
+}
+
 .main-pt {
   padding-top: 40px;
 }
@@ -148,12 +161,27 @@ h2 {
   padding-bottom: 40px;
 }
 
+.main-head {
+  font-size: 2.9375rem;
+  margin-bottom: 0px;
+  font-weight: 600;
+}
+
+.main-bg-head {
+  font-size: 3.25rem;
+  margin-bottom: 0px;
+}
+
 .date-text {
   font-size: 14px;
 }
 
-.main-trans {
+.main-trans, .vhr-animation::after {
   transition: all 0.3s ease-in-out;
+}
+
+.main-border, .article-content {
+  border: 1px solid #000;
 }
 
 .align-item {
@@ -169,12 +197,62 @@ h2 {
   width: 100%;
 }
 
+.main-color {
+  color: #000;
+}
+
+.main-bg {
+  background-color: #000;
+}
+
+.main-hvr, .article-content:hover {
+  cursor: pointer;
+}
+
+.backdrop {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  width: 100%;
+  background-color: rgba(51, 51, 51, 0.298);
+  cursor: pointer;
+}
+
+.vhr-animation {
+  position: relative;
+}
+.vhr-animation::after {
+  position: absolute;
+  content: "";
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #000;
+  width: 0%;
+  height: 2px;
+}
+.vhr-animation:hover::after {
+  width: 100%;
+}
+.vhr-animation:hover {
+  color: #000;
+}
+
+.m-bigshadow {
+  box-shadow: 9px 9px 0px 0px rgb(0, 0, 0);
+}
+
+.m-shadow, .main-hvr, .article-content:hover {
+  box-shadow: 3px 4px 0px 0px rgb(0, 0, 0);
+}
+
+a.article-content {
+  color: #000;
+}
+
 .article-content {
   padding: 10px;
-}
-.article-content:hover {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
 }
 .article-content:hover .art-img {
   filter: blur(0px);
@@ -186,9 +264,17 @@ h2 {
   box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.2);
   color: #000;
 }
+.article-content .art-type a:hover {
+  background-color: #000;
+  color: #fff;
+}
 .article-content h3 {
   font-size: 22px;
   line-height: 1.4;
+  min-height: 62px;
+}
+.article-content h5 {
+  max-height: 85px;
 }
 .article-content .art-img {
   width: 175px;
@@ -196,6 +282,29 @@ h2 {
   -o-object-fit: cover;
      object-fit: cover;
   filter: blur(0.8px);
+}
+@media (max-width: 991px) {
+  .article-content .art-img {
+    width: 90%;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+}
+.article-content .icon {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  left: 30%;
+  background-color: #fff;
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+  border-radius: 5px;
+}
+.article-content:hover .icon {
+  left: 50%;
+  opacity: 1;
 }
 .article-content .content a {
   padding: 6px 24px;
@@ -205,10 +314,6 @@ h2 {
 
 .shows .article-content {
   border: none !important;
-}
-.shows .article-content img {
-  width: 150px !important;
-  height: 140px !important;
 }
 .shows .article-content .user-info span {
   color: #707070;

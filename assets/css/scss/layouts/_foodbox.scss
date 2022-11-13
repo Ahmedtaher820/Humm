@@ -1,10 +1,12 @@
 $userColor: #707070;
 .article-content {
   padding: 10px;
+  @extend .main-border;
   &:hover {
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
+    @extend .main-hvr;
+
   }
+
   &:hover .art-img {
     filter: blur(0px);
   }
@@ -15,17 +17,46 @@ $userColor: #707070;
     a {
       box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.2);
       color: $main-color;
+      &:hover{
+        background-color: $main-color;
+        color: $second-color;
+      }
     }
   }
   h3 {
     font-size: 22px;
     line-height: 1.4;
+    min-height: 62px;
+  }
+  h5{
+    max-height: 85px;
+
   }
   .art-img {
-    width: 175px;
+    width: 175px ;
+    @media (max-width:991px) {
+      width: 90%;
+    object-fit: cover;
+    }
     height: 180px;
     object-fit: cover;
     filter: blur(0.8px);
+  }
+  .icon{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    opacity: 0;
+    left: 30%; 
+    background-color: $second-color;
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  &:hover .icon{
+    left: 50%;
+    opacity: 1;
   }
   .content {
     a {
@@ -38,10 +69,7 @@ $userColor: #707070;
 .shows {
   .article-content {
     border: none !important;
-    img{
-        width: 150px !important;
-        height: 140px !important;
-    }
+
     .user-info {
       span {
         color: $userColor;
@@ -72,6 +100,7 @@ $userColor: #707070;
       width: 100% !important;
       height: 90% !important;
     }
+    
     }
   }
 }

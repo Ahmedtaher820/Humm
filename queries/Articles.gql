@@ -1,0 +1,35 @@
+  query GetArticles( $lang:String="ar-EG",$type:String ="food",$limit:Int = 6){
+  Article(
+    sort: "-date_created"
+    filter:{
+    translations:{languages_code:{code:{_eq:$lang}}},status:{_eq:"published"} , type:{_eq:$type}} limit:$limit)
+    {
+   
+    id
+    press_link
+    video
+    user_created {
+      first_name
+      last_name
+    }
+    type
+    slug
+    category{
+      id
+      slug
+      translations(filter:{languages_code:{code:{_eq:$lang}}}){
+        title
+      }
+      
+    }
+    translations(filter:{languages_code:{code:{_eq:$lang}}}){
+      title
+      content
+      description
+      cover{
+        id
+      }
+    }
+    date_created
+  }
+}

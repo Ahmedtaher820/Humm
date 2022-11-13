@@ -49,11 +49,21 @@
         border-top:1px solid $main-color ;
         border-bottom:1px solid $main-color ;
         ul {
-            
             li{
                 padding: 0em 1em;
+                &:hover span{
+                  color: red;
+                } 
+                &:hover a{
+                  color: red;
+                }
+                img{
+                  width: 32px;
+                  height: 32px;
+                }
                 a{
                     color: $main-color;
+                    font-size: 16px;
                 }
             }
         }

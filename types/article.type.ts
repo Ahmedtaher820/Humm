@@ -1,4 +1,4 @@
-export default interface ArticleResult {
+export class ArticleResult {
     id: string;
     user_created: {
       first_name: string;
@@ -9,10 +9,14 @@ export default interface ArticleResult {
     category: {
       translations: {
         title: string;
-      }[];
+      };
     };
     translations: {
       title: string;
-    }[];
+    };
     date_created: string;
-  }[]
+  }
+
+  export class Posters{
+    translations:{}[]
+  }
