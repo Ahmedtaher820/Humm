@@ -21,6 +21,7 @@ declare global {
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getImages: typeof import('../../composables/getImages')['default']
+  const getPosters: typeof import('../../composables/getPoster')['getPosters']
   const gql: typeof import('graphql-tag')['gql']
   const h: typeof import('vue')['h']
   const inject: typeof import('vue')['inject']
@@ -99,6 +100,7 @@ declare global {
   const useLazyQuery: typeof import('@vue/apollo-composable')['useLazyQuery']
   const useLink: typeof import('vue-router')['useLink']
   const useMeta: typeof import('../../node_modules/nuxt/dist/head/runtime')['useMeta']
+  const useMoreArticles: typeof import('../../composables/shareState')['useMoreArticles']
   const useMutation: typeof import('@vue/apollo-composable')['useMutation']
   const useMutationLoading: typeof import('@vue/apollo-composable')['useMutationLoading']
   const useNuxtApp: typeof import('../../node_modules/nuxt/dist/app')['useNuxtApp']
@@ -150,6 +152,7 @@ declare module 'vue' {
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getImages: UnwrapRef<typeof import('../../composables/getImages')['default']>
+    readonly getPosters: UnwrapRef<typeof import('../../composables/getPoster')['getPosters']>
     readonly gql: UnwrapRef<typeof import('graphql-tag')['gql']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
@@ -228,6 +231,7 @@ declare module 'vue' {
     readonly useLazyQuery: UnwrapRef<typeof import('@vue/apollo-composable')['useLazyQuery']>
     readonly useLink: UnwrapRef<typeof import('vue-router')['useLink']>
     readonly useMeta: UnwrapRef<typeof import('../../node_modules/nuxt/dist/head/runtime')['useMeta']>
+    readonly useMoreArticles: UnwrapRef<typeof import('../../composables/shareState')['useMoreArticles']>
     readonly useMutation: UnwrapRef<typeof import('@vue/apollo-composable')['useMutation']>
     readonly useMutationLoading: UnwrapRef<typeof import('@vue/apollo-composable')['useMutationLoading']>
     readonly useNuxtApp: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app')['useNuxtApp']>

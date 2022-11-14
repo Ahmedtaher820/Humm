@@ -5,16 +5,15 @@
         .col-xl-4.col-md-6.mb-3.mb-md-0(v-for="{id,user_created , slug,type,category,translations,date_created} in firstArtBlog" :key="id" )
             HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category",:translations="translations" , :date_created="date_created" :isOneItem="false" :moreItem="true" , :userInfo="true")
     .row.main-pt.main-pb
-        .col-xl-4.col-lg-6
+        .col-xl-4.col-md-6
             div(v-for="{user_created , slug,type,category,translations,date_created} in firstCol").mb-md-3
                 HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category" :translations="translations" , :date_created="date_created" :isOneItem="false" :moreItem="true")
-        .col-xl-4.col-lg-6.position-relative
-            NuxtLink(:to="type+'/'+slug").article-content.alone.d-flex.flex-column.gap-2.py-3.position-relative.position-lg-absolute.main-trans(v-for="{id,user_created , slug,type,category,translations,date_created } in secondCol" :key="id")
+        .col-xl-4.col-md-6.position-relative
+            NuxtLink(:to="type+'/'+slug").article-content.alone.d-flex.flex-column.gap-2.position-relative.position-lg-absolute.main-trans(v-for="{id,user_created , slug,type,category,translations,date_created } in secondCol" :key="id")
                 div
                     img(:src="getImages(translations[0].cover.id)").art-img.main-trans
                 .content.d-flex.flex-column.gap-2.px-3
-                    .art-type: NuxtLink(:to="`food/category/dessert`") {{category.translations[0].title}}
-                    h3(class="mb-0") {{translations[0].title}}
+                    .art-type: NuxtLink(:to="`/food/category/${category.slug}`") {{category.translations[0].title}}
                     div.d-flex.gap-2.user-info.flex-column
                         div
                             svg(id="user-6-line" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24")
@@ -27,19 +26,25 @@
                                 path(id="Path_35237" data-name="Path 35237" d="M12,22A10,10,0,1,1,22,12,10,10,0,0,1,12,22Zm0-2a8,8,0,1,0-8-8A8,8,0,0,0,12,20Zm1-8h4v2H11V7h2Z") 
                             span.date-text.fw-light {{new Date(date_created).toLocaleString().slice(0,new Date(date_created).toLocaleString().indexOf(","))}}                                              
 
-        .col-xl-4.col-lg-6
+        .col-xl-4.col-md-6
             .div(v-for="{id,user_created , slug,type,category,translations,date_created} in lastCol" :key="id").mb-md-3
                 HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category",:translations="translations" , :date_created="date_created" :isOneItem="false" :moreItem="true")
 
 </template>
-    
 <script setup lang="ts">
 import {ArticleResult} from "../../types/article.type";
 const articleState = useArticles();
 const query = gql`
-  query articles( $lang:String , $eq:String,$stats:String ){
-  Article(filter:{translations:{languages_code:{code:{_eq:$lang}}},status:{_eq:$stats},type:{_eq:$eq}}){
+  query GetArticles( $lang:String="ar-EG",$type:String ="food",$limit:Int = 6){
+  Article(
+    sort: "-date_created"
+    filter:{
+    translations:{languages_code:{code:{_eq:$lang}}},status:{_eq:"published"} , type:{_eq:$type}} limit:$limit)
+    {
+   
     id
+    press_link
+    video
     user_created {
       first_name
       last_name
@@ -47,6 +52,8 @@ const query = gql`
     type
     slug
     category{
+      id
+      slug
       translations(filter:{languages_code:{code:{_eq:$lang}}}){
         title
       }
@@ -54,6 +61,8 @@ const query = gql`
     }
     translations(filter:{languages_code:{code:{_eq:$lang}}}){
       title
+      content
+      description
       cover{
         id
       }
@@ -63,7 +72,8 @@ const query = gql`
 }
 
 `;
-const variables = { limit: 8 , eq:"food" ,lang:"ar-EG",stats:"published"};
+const variables = { eq:"food" ,lang:"ar-EG",stats:"published",limit:8};
+articleState.value = []
 if (articleState.value.length == 0) {
   const { data } = await useAsyncQuery<ArticleResult[]>(query, variables);
   if (data.value.Article.length > 0) {

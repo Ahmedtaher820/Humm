@@ -4,10 +4,8 @@
     .row
         .col-md-6
             DisplayOneItem(:items="first" :oneItems="true")
-        .col-md-6.mt-3
-            DisplayOneItem(v-for="item in second" :items="item" :oneItems="false").mb-3
-            //- div(v-for="{user_created , slug,type,category,translations,date_created} in second").my-3
-            //-     HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category",:translations="translations" , :date_created="date_created" :isOneItem="false" :moreItem="true" :readSection="true" )
+        .col-md-6
+            DisplayOneItem(v-for="item in second" :items="item" :oneItems="false").mb-2
 </template>
 
 <script lang="ts" setup>

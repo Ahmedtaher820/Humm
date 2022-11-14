@@ -133,7 +133,6 @@ const posterVar = {lang:"ar-EG"}
 const posters = usePosters()
 if(posters.value.length === 0){
   const {data} = await useAsyncQuery<Posters>(getPosters,posterVar)
-  console.log(data.value.posters.translations.length)
   if(data.value.posters.translations.length > 0){
     posters.value.push(data.value.posters.translations[0])
   }

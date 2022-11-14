@@ -1,6 +1,6 @@
 $userColor: #707070;
 .article-content {
-  padding: 10px;
+  padding: 20px;
   @extend .main-border;
   &:hover {
     @extend .main-hvr;
@@ -27,15 +27,19 @@ $userColor: #707070;
     font-size: 22px;
     line-height: 1.4;
     min-height: 62px;
+    @media (max-width:991px) {
+    min-height: auto;
+    }
   }
   h5{
-    max-height: 85px;
+    max-height: 150px;
 
   }
   .art-img {
     width: 175px ;
     @media (max-width:991px) {
-      width: 90%;
+      width: 100%;
+      margin: 0px auto;
     object-fit: cover;
     }
     height: 180px;

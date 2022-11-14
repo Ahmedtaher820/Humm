@@ -1,4 +1,5 @@
 export const useArticles = ()=>useState(()=>[])
+export const useMoreArticles = ()=>useState(()=>[])
 export const usePosters = () => useState(()=>[])
 export const useReadArticles = ()=> useState(()=>[])
 export const useShows = ()=> useState(()=>[])

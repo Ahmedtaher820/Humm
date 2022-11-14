@@ -1,5 +1,5 @@
 <template lang="pug">
-RouterLink(:to="items.type+'/'+items.slug").article-content.d-flex.gap-3.main-trans(:class="oneIt")
+NuxtLink(:to="items.type+'/'+items.slug").article-content.d-flex.gap-3.main-trans(:class="oneIt")
     img(v-if="show" src="/images/HomeIcons/video.svg" alt="vedio icon").main-trans.d-block.full-w
     div.img-read(v-else)
         img( :src="`https://board.humm.world/assets/${items.translations[0].cover.id}?fit=cover&quality=80`" loading="lazy" :alt="items.translations[0].title").main-trans.d-block.full-w
@@ -46,7 +46,7 @@ const oneIt = computed(()=>{
     @extend .alone;
     @extend .main-border;
     @extend .m-shadow;
-    padding:24px 10px ;
+    padding:20px ;
     flex-direction: column;
     .img-read{
         img{

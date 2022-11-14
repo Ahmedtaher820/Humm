@@ -1,7 +1,7 @@
 <template lang="pug">
 footer
     .container.mb-5
-        .footer-nav.align-item.justify-content-between.pt-5
+        .footer-nav.align-item.justify-content-between.pt-5.flex-column.flex-lg-row.gap-4.gap-lg-0
             ul.social
                 li.ms-3.cursor-p
                     img(src="/images/FooterIcons/twitter.svg")

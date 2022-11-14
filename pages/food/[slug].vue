@@ -9,9 +9,9 @@ template(v-if="isSlug[0]")
             .row 
                 .col-lg-8
                     .slug-content.flex.flex-column.gap-3
-                        a(:href="'./category/'+isSlug[0].category.slug").cate-title.main-border.main-trans.main-color.px-4.py-2 {{isSlug[0].category.translations[0].title}}
-                        h2.py-3 {{isSlug[0].translations[0].title}}
-                        .user.align-item.justify-content-between
+                        a(:href="'./category/'+isSlug[0].category.slug").cate-title.main-border.main-trans.main-color.px-4.py-2.mb-3.d-inline-block {{isSlug[0].category.translations[0].title}}
+                        h2.pb-3 {{isSlug[0].translations[0].title}}
+                        .user.align-item.justify-content-between.flex-column.flex-md-row.justify-content-start.py-3
                           div.date-box.align-item.gap-2
                             div
                                 svg(id="user-6-line" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24")
@@ -38,22 +38,24 @@ template(v-if="isSlug[0]")
 
                                       li.cursor-p
                                           img(src="/images/FooterIcons/twitter.svg")
-                        div(v-html="isSlug[0].translations[0].content").my-3.pieces        
+                        div(v-if="isSlug[0].translations[0].content" v-html="isSlug[0].translations[0].content").my-3.pieces        
                 .col-lg-4
                     .poster-img.d-lg-flex.flex-lg-column
                         HomeCompDisplayPosters(:posterCover="post[0].normal2_cover.id" :posterTitle="post[0].normal2_title" :posterUrl="post[0].normal2_url").cursor-p.mb-3
                         HomeCompDisplayPosters(:posterCover="post[0].wide2_cover.id" :posterTitle="post[0].wide2_title" :posterUrl="post[0].wide2_url").cursor-p
                 .col-md-12.my-5
                         HomeCompDisplayPosters(:posterCover="post[0].wide_cover.id" :posterTitle="post[0].wide_title" :posterUrl="post[0].wide_url").cursor-p
-        KnowMoreFoodDescribe(:items="foods" , sectionLink='food')
+        KnowMoreFoodDescribe(:items="foods" , sectionLink='food'  :dataEnded="true")
 </template>
 
 <script lang="ts" setup>
 import {dateForm} from "../../components/modules/dateFormat"
 let isSlug = useFoodSlug()
 const route = useRoute()
+
 const post = usePosters() 
 console.log(post.value)
+// get slug data
 let q = gql`
   query articles( $lang:String,$slug:String){
   Article(filter:{slug:{_eq:$slug}, translations:{languages_code:{code:{_eq:$lang}}}}){
@@ -137,18 +139,9 @@ const dateFormater = dateForm(isSlug.value[0].date_created)
 const offset = ref(0);
 const limit = ref(8);
 const recentFood = gql`
-  query articles( $lang:String,$type:String,$limit:Int = 6){
-  Article(
-    sort: "-date_created"
-    filter:{
-    translations:{languages_code:{code:{_eq:$lang}}},status:{_eq:"published"} , type:{_eq:$type}}
-     limit:$limit
-    )
-    {
-   
+  query articles2( $lang:String ="ar-EG" , $eq:String="food",$stats:String="published" ){
+  Article(filter:{translations:{languages_code:{code:{_eq:$lang}}},status:{_eq:$stats},type:{_eq:$eq}}){
     id
-    press_link
-    video
     user_created {
       first_name
       last_name
@@ -156,24 +149,21 @@ const recentFood = gql`
     type
     slug
     category{
-      id
       slug
-      translations(filter:{languages_code:{code:{_eq:$lang}}}){
+      translations{
         title
       }
       
     }
     translations(filter:{languages_code:{code:{_eq:$lang}}}){
       title
-      content
-      description
       cover{
         id
       }
     }
     date_created
   }
-}
+  }
 `
 const variablees = {lang:"ar-EG",type:"food",limit:limit.value}
 const getFoods = useArticles()
@@ -182,8 +172,9 @@ if(getFoods.value.length > 0){
   foods.value = getFoods.value
 }else{
   const {data} = await useAsyncQuery(recentFood , variablees)
+  console.log(data.value)
   getFoods.value = data.value.Article
-  foods.value = getFoods.value
+  foods.value = data.value.Article  
 }
 </script>
 

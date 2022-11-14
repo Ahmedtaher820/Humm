@@ -8,7 +8,7 @@
               img(:src="getImages(translations[0].cover.id)" loading="lazy" :alt="translations[0].title").art-img.main-trans
               Icon(:name="icon" size="32").position-absolute.icon.main-trans
             .content.d-flex.flex-column.justify-content-between.gap-2.pe-2
-                .art-type: NuxtLink(:to="'food/category/'").main-trans {{category.translations[0].title}}
+                .art-type: NuxtLink(:to="`/food/category/${category.slug}`").main-trans {{category.translations[0].title}}
                 h5(class="mb-0") {{translations[0].title}}
                 div.d-flex.gap-2.user-info.flex-column
                     div
@@ -20,13 +20,12 @@
                       svg(id="time-line" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" )
                           path(id="Path_35236" data-name="Path 35236" d="M0,0H24V24H0Z" fill="none")
                           path(id="Path_35237" data-name="Path 35237" d="M12,22A10,10,0,1,1,22,12,10,10,0,0,1,12,22Zm0-2a8,8,0,1,0-8-8A8,8,0,0,0,12,20Zm1-8h4v2H11V7h2Z") 
-                      //- span.date-text.fw-light {{dateFormat}}
-    button.main-btn.d-block.mx-auto.my-4(v-if="showMoreBtn") عرض المزيد 
+                      span.date-text.fw-light {{dateFormat(date_created)}}
 
 </template>
 <script lang="ts" setup>
 import {dateForm} from "../modules/dateFormat";
-const icon = ref('uil:video')
+
 defineProps({
   headerTitle:{
     type:String,
@@ -43,8 +42,19 @@ defineProps({
   items:{
     type:Array,
     required:true
+  },
+  dataEnded:{
+    type:Boolean,
+    default:false
   }
 })
+const icon = ref('uil:video')
+const limit = ref(0)
+const getFoods = useArticles()
+const emit = defineEmits(['loadmore'])
+function dateFormat(date:string){
+  dateForm(date)
+} 
 
 </script>
 

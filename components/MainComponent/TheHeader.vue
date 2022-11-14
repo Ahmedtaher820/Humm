@@ -26,7 +26,7 @@ div(class="container header")
             li(v-for="(list,ind) in navLists"  :key="ind").cursor-p
               div(v-if="list.title == 'القائمه'" @click="openMenu()").align-item
                 img(:src="`/images/HeaderIcons/${list.srcName}.svg`" :alt="`${list.pageLink} icon`") 
-                span.ms-1.fw-bold.main-trans.me-3.fs-3.me-md-2.fs-md-6 {{list.title}}
+                span.ms-1.fw-bold.main-trans.me-3.me-md-2.fs-5 {{list.title}}
               div(v-else).d-none.d-md-block 
                 NuxtLink(:to="'/'+list.pageLink").align-item
                   img(:src="`/images/HeaderIcons/${list.srcName}.svg`" :alt="`${list.pageLink} icon`") 

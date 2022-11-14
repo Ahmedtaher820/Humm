@@ -66,6 +66,9 @@
                 @extend .main-hvr
             }
         }
+        p{
+            line-height: 35px;
+        }
     }
     .about.txt-img {
     img{
