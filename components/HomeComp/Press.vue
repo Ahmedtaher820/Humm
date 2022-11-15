@@ -37,6 +37,7 @@ interface Cover{
 </script>
 <style lang="scss">
     .show-img{
+        transition:transform .3s;
         &:hover{
             transform: scale(.9);
         }

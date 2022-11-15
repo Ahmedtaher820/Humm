@@ -41,10 +41,10 @@ template(v-if="isSlug[0]")
                         div(v-if="isSlug[0].translations[0].content" v-html="isSlug[0].translations[0].content").my-3.pieces        
                 .col-lg-4
                     .poster-img.d-lg-flex.flex-lg-column
-                        HomeCompDisplayPosters(:posterCover="post[0].normal2_cover.id" :posterTitle="post[0].normal2_title" :posterUrl="post[0].normal2_url").cursor-p.mb-3
-                        HomeCompDisplayPosters(:posterCover="post[0].wide2_cover.id" :posterTitle="post[0].wide2_title" :posterUrl="post[0].wide2_url").cursor-p
+                        HomeCompDisplayPosters(:posterCover="normal1Cover.id" :posterTitle="normal1Cover.title" :posterUrl="normal1Cover.url").cursor-p.mb-3
+                        HomeCompDisplayPosters(:posterCover="normal2Cover.id" :posterTitle="normal2Cover.title" :posterUrl="normal2Cover.url").cursor-p
                 .col-md-12.my-5
-                        HomeCompDisplayPosters(:posterCover="post[0].wide_cover.id" :posterTitle="post[0].wide_title" :posterUrl="post[0].wide_url").cursor-p
+                    HomeCompDisplayPosters(:posterCover="wideCover.id" :posterTitle="wideCover.title" :posterUrl="wideCover.url").cursor-p
         KnowMoreFoodDescribe(:items="foods" , sectionLink='food'  :dataEnded="true")
 </template>
 
@@ -89,7 +89,6 @@ let q = gql`
 }
 `
 if(isSlug.value[0]?.slug == route.params.slug){
-console.log("is founded")
 console.log(isSlug.value[0].translations[0].content)
 }
 else{
@@ -99,41 +98,15 @@ else{
     isSlug.value.push(data.value.Article[0])
 }
 // get posters 
-if(post.value.length === 0){
-    const getPosters = gql`
-  query getPosters($lang:String){
-  posters{
-    translations(filter:{languages_code:{code:{_eq:$lang}}}){
-      wide_url
-      wide_title
-      wide_cover{
-        id
-      }
-      wide2_url
-      wide2_title
-      wide2_cover{
-        id
-      }
-      normal_title
-      normal_url
-      normal_cover{
-        id
-      }
-      normal2_title
-      normal2_url
-      normal2_cover{
-        id
-      }
-    }
-  }
-}
-`
-const posterVar = {lang:"ar-EG"}
-const {data} = await useAsyncQuery(getPosters , posterVar)
-if(data.value.posters.translations.length > 0){
-    post.value.push(data.value.posters.translations[0])
-}
-}
+const normal1Cover = ref({})
+const normal2Cover = ref({})
+const wideCover = ref({})
+const posters= getPosters().then((res)=>{
+  normal1Cover.value = res.firstPoster.normal1Cover
+  normal2Cover.value = res.firstPoster.normal2Cover
+    wideCover.value = res.firstPoster.wide1Cover
+})
+
 const dateFormater = dateForm(isSlug.value[0].date_created)
 // get all foods
 const offset = ref(0);

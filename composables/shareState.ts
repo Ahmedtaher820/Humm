@@ -5,3 +5,6 @@ export const useReadArticles = ()=> useState(()=>[])
 export const useShows = ()=> useState(()=>[])
 export const useBrands = ()=> useState(()=>[])
 export const useFoodSlug = ()=> useState(()=>[])
+export const useReadArt = () => useState(()=>[])
+// state for shows load more 
+export const useLoadShows = () => useState(()=>[])

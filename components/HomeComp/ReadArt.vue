@@ -2,7 +2,7 @@
 .container.mb-2x.mt-2x
     MainComponentSectionHeader(sectionTitle="المقالات" sectionLink="read")
     .row
-        .col-md-6
+        .col-md-6.center-items
             DisplayOneItem(:items="first" :oneItems="true")
         .col-md-6
             DisplayOneItem(v-for="item in second" :items="item" :oneItems="false").mb-2

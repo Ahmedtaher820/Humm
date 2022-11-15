@@ -99,6 +99,7 @@ declare global {
   const useLazyFetch: typeof import('../../node_modules/nuxt/dist/app')['useLazyFetch']
   const useLazyQuery: typeof import('@vue/apollo-composable')['useLazyQuery']
   const useLink: typeof import('vue-router')['useLink']
+  const useLoadShows: typeof import('../../composables/shareState')['useLoadShows']
   const useMeta: typeof import('../../node_modules/nuxt/dist/head/runtime')['useMeta']
   const useMoreArticles: typeof import('../../composables/shareState')['useMoreArticles']
   const useMutation: typeof import('@vue/apollo-composable')['useMutation']
@@ -107,6 +108,7 @@ declare global {
   const usePosters: typeof import('../../composables/shareState')['usePosters']
   const useQuery: typeof import('@vue/apollo-composable')['useQuery']
   const useQueryLoading: typeof import('@vue/apollo-composable')['useQueryLoading']
+  const useReadArt: typeof import('../../composables/shareState')['useReadArt']
   const useReadArticles: typeof import('../../composables/shareState')['useReadArticles']
   const useRequestEvent: typeof import('../../node_modules/nuxt/dist/app')['useRequestEvent']
   const useRequestHeaders: typeof import('../../node_modules/nuxt/dist/app')['useRequestHeaders']
@@ -230,6 +232,7 @@ declare module 'vue' {
     readonly useLazyFetch: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app')['useLazyFetch']>
     readonly useLazyQuery: UnwrapRef<typeof import('@vue/apollo-composable')['useLazyQuery']>
     readonly useLink: UnwrapRef<typeof import('vue-router')['useLink']>
+    readonly useLoadShows: UnwrapRef<typeof import('../../composables/shareState')['useLoadShows']>
     readonly useMeta: UnwrapRef<typeof import('../../node_modules/nuxt/dist/head/runtime')['useMeta']>
     readonly useMoreArticles: UnwrapRef<typeof import('../../composables/shareState')['useMoreArticles']>
     readonly useMutation: UnwrapRef<typeof import('@vue/apollo-composable')['useMutation']>
@@ -238,6 +241,7 @@ declare module 'vue' {
     readonly usePosters: UnwrapRef<typeof import('../../composables/shareState')['usePosters']>
     readonly useQuery: UnwrapRef<typeof import('@vue/apollo-composable')['useQuery']>
     readonly useQueryLoading: UnwrapRef<typeof import('@vue/apollo-composable')['useQueryLoading']>
+    readonly useReadArt: UnwrapRef<typeof import('../../composables/shareState')['useReadArt']>
     readonly useReadArticles: UnwrapRef<typeof import('../../composables/shareState')['useReadArticles']>
     readonly useRequestEvent: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app')['useRequestEvent']>
     readonly useRequestHeaders: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app')['useRequestHeaders']>

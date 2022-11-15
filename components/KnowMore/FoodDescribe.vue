@@ -1,15 +1,34 @@
 <template lang="pug">
-.food-desc 
-    MainComponentSectionHeader(:sectionTitle="headerTitle" ,:showLink="showLink" )
+temaplte(v-if="isShow")
+  .show-desc 
+    MainComponentSectionHeader(v-if="showHeader" :sectionTitle="headerTitle" ,:showLink="showLink" :sectionLink="sectionLink")
+    .row
+        .col-md-6.mb-md-3.px-2(v-for="{user_created,slug,type,category,translations,date_created} in items")
+            NuxtLink(:to="'/shows/'+$route.params.slug+'/'+slug" :title="translations[0].title").article-content.d-flex.gap-3.main-trans.flex-column.flex-lg-row.text-center.text-md-end.mb-3.mb-md-0.p-4
+              div.position-relative.show-img
+                img(:src="getImages(translations[0].cover.id)" loading="lazy" :alt="translations[0].title").main-trans.full-w
+                Icon(:name="icon" size="32" ).position-absolute.icon.main-trans
+              .content.d-flex.flex-column.justify-content-between.gap-2.pe-2
+                  .show-type: NuxtLink(:to="`/shows/${$route.params.slug}`" :title="showHeadUrl").main-trans.main-border {{showHeadUrl}}
+                  h5(class="mb-0") {{translations[0].title}}
+                  div
+                    svg(id="time-line" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" )
+                        path(id="Path_35236" data-name="Path 35236" d="M0,0H24V24H0Z" fill="none")
+                        path(id="Path_35237" data-name="Path 35237" d="M12,22A10,10,0,1,1,22,12,10,10,0,0,1,12,22Zm0-2a8,8,0,1,0-8-8A8,8,0,0,0,12,20Zm1-8h4v2H11V7h2Z") 
+                    span.date-text.fw-light {{dateFormat(date_created)}}
+template(v-else)
+  .food-desc 
+    MainComponentSectionHeader(v-if="showHeader" :sectionTitle="headerTitle" ,:showLink="showLink" :sectionLink="sectionLink")
     .row 
-        .col-lg-4.col-md-6.mb-md-3(v-for="{user_created,slug,type,category,translations,date_created} in items")
+      .col-xl-4.col-md-6.p-2(v-for="{user_created,slug,type,category,translations,date_created} in items")
           NuxtLink(:to="'/'+type+'/'+slug").article-content.d-flex.gap-3.main-trans.flex-column.flex-lg-row.text-center.text-md-end.mb-3.mb-md-0
             div.position-relative
               img(:src="getImages(translations[0].cover.id)" loading="lazy" :alt="translations[0].title").art-img.main-trans
-              Icon(:name="icon" size="32").position-absolute.icon.main-trans
+              Icon(:name="icon" size="32" v-if="sectionLink == 'food'").position-absolute.icon.main-trans
             .content.d-flex.flex-column.justify-content-between.gap-2.pe-2
-                .art-type: NuxtLink(:to="`/food/category/${category.slug}`").main-trans {{category.translations[0].title}}
-                h5(class="mb-0") {{translations[0].title}}
+                .art-type( v-if="category !== null"): NuxtLink(:to="`/${type}/category/${category.slug}`").main-trans {{category.translations[0].title}}
+                h5(class="mb-0" v-if="sectionLink == 'food'") {{translations[0].title.slice(0,50)}} {{translations[0].title.length - 50 > 0 ? '...' : ''}}
+                h5(class="mb-0" v-else) {{translations[0].title}}
                 div.d-flex.gap-2.user-info.flex-column
                     div
                       svg(id="user-6-line" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24")
@@ -32,36 +51,72 @@ defineProps({
     default:"احدث الواصفات"
   },
   showLink:{
-    type:Boolean,
+    type:String,
     default:true
-  },
-  showMoreBtn:{
-    type:Boolean,
-    default:false
   },
   items:{
     type:Array,
     required:true
   },
+  
+    sectionLink:{
+      type:String
+    }
+  ,
   dataEnded:{
     type:Boolean,
     default:false
+  },
+  showHeader:{
+    type:Boolean,
+    
+  },
+  isShow:{
+    type:Boolean,
+    default:false
+  },
+  showHeadUrl:{
+    type:String
   }
 })
 const icon = ref('uil:video')
-const limit = ref(0)
-const getFoods = useArticles()
-const emit = defineEmits(['loadmore'])
 function dateFormat(date:string){
-  dateForm(date)
+ return dateForm(date).value
 } 
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .food-desc {
   button{
     width: fit-content;
   }
+}
+.show-desc {
+  .article-content {
+    .show-img{
+
+      img{
+
+        height: 150px;
+        width: 150px;
+      }
+    }
+  }
+
+  .show-type{
+      a {
+        padding:8px 16px;
+        display: inline-block;
+        background-color: $second-color;
+        color: $main-color;
+        border-radius: 30px;
+        font-weight: 600;
+        &:hover{
+          background-color: $main-color;
+          color:$second-color
+        }
+      }
+    }
 }
 </style>

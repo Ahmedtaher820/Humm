@@ -9,7 +9,7 @@
             div(v-for="{user_created , slug,type,category,translations,date_created} in firstCol").mb-md-3
                 HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category" :translations="translations" , :date_created="date_created" :isOneItem="false" :moreItem="true")
         .col-xl-4.col-md-6.position-relative
-            NuxtLink(:to="type+'/'+slug").article-content.alone.d-flex.flex-column.gap-2.position-relative.position-lg-absolute.main-trans(v-for="{id,user_created , slug,type,category,translations,date_created } in secondCol" :key="id")
+            NuxtLink(:to="type+'/'+slug" v-for="{id,user_created , slug,type,category,translations,date_created } in secondCol" :key="id").article-content.alone.d-flex.flex-column.gap-2.position-relative.position-lg-absolute.main-trans
                 div
                     img(:src="getImages(translations[0].cover.id)").art-img.main-trans
                 .content.d-flex.flex-column.gap-2.px-3
@@ -24,7 +24,7 @@
                             svg(id="time-line" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" )
                                 path(id="Path_35236" data-name="Path 35236" d="M0,0H24V24H0Z" fill="none")
                                 path(id="Path_35237" data-name="Path 35237" d="M12,22A10,10,0,1,1,22,12,10,10,0,0,1,12,22Zm0-2a8,8,0,1,0-8-8A8,8,0,0,0,12,20Zm1-8h4v2H11V7h2Z") 
-                            span.date-text.fw-light {{new Date(date_created).toLocaleString().slice(0,new Date(date_created).toLocaleString().indexOf(","))}}                                              
+                            span.date-text.fw-light {{formatDatee}}                                              
 
         .col-xl-4.col-md-6
             .div(v-for="{id,user_created , slug,type,category,translations,date_created} in lastCol" :key="id").mb-md-3
@@ -33,6 +33,9 @@
 </template>
 <script setup lang="ts">
 import {ArticleResult} from "../../types/article.type";
+import {dateForm} from "../../components/modules/dateFormat"
+import { formatDate } from "@vueuse/shared";
+
 const articleState = useArticles();
 const query = gql`
   query GetArticles( $lang:String="ar-EG",$type:String ="food",$limit:Int = 6){
@@ -97,4 +100,6 @@ const lastCol = computed(() => {
 const shops = computed(() => {
   return [...articleState.value.slice(2, 6)];
 });
+console.log(secondCol.value[0].date_created)
+const formatDatee = dateForm(secondCol.value[0].date_created)
 </script>

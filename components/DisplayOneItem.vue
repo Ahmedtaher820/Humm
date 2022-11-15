@@ -1,9 +1,9 @@
 <template lang="pug">
-NuxtLink(:to="items.type+'/'+items.slug").article-content.d-flex.gap-3.main-trans(:class="oneIt")
+NuxtLink(:to="items.type+'/'+items.slug" :class="oneIt").article-content.d-flex.gap-3.main-trans
     img(v-if="show" src="/images/HomeIcons/video.svg" alt="vedio icon").main-trans.d-block.full-w
     div.img-read(v-else)
-        img( :src="`https://board.humm.world/assets/${items.translations[0].cover.id}?fit=cover&quality=80`" loading="lazy" :alt="items.translations[0].title").main-trans.d-block.full-w
-    .content.d-flex.flex-column.gap-2
+        img( :src="`https://board.humm.world/assets/${items?.translations[0]?.cover?.id}?fit=cover&quality=80`" loading="lazy" :alt="items.translations[0].title").main-trans.d-block.full-w
+    .content.d-flex.flex-column.gap-2.justify-content-around
         h3(class="mb-0") {{items.translations[0].title}}
         div.d-flex.gap-3.user-info
             div
@@ -62,6 +62,7 @@ const oneIt = computed(()=>{
         justify-content: space-between;
         h3{
             max-width: 400px;
+            line-height: 1.2;
         }
         .user-info{
             flex-direction: row;

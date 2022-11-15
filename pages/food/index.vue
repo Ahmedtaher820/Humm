@@ -1,8 +1,8 @@
 <template lang="pug">
 .food.mt-5
   .container
-    KnowMoreFoodDescribe(:items='allData' :showMoreBtn="true" headerTitle="وصفات")
-    button.main-btn.d-block.mx-auto.my-4( @click="loadMore()" v-if="noMoreData") عرض المزيد 
+    KnowMoreFoodDescribe(:items='allData' :showHeader="true" headerTitle="وصفات" sectionLink="food")
+    button.main-btn.d-block.mx-auto.my-5( @click="loadMore()" v-if="noMoreData") عرض المزيد 
 
 </template>
 
@@ -67,7 +67,7 @@ async function getData(variablees:{lang:String , type:String , limit:Number}){
   getFoods.value = data.value.Article
 }
 function loadMore(){
-  limit.value += limit.value
+  limit.value += 8
   variablees.limit = limit.value
   getData(variablees)
 }

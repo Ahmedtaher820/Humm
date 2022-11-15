@@ -116,6 +116,18 @@ padding-top: 40px;
   margin-bottom: 0px;
   font-weight: 600;
 }
+.main-head-2xl{
+  font-size: 3.4rem;
+  margin-bottom: 0px;
+  font-weight: 700;
+  line-height: 4.2rem;
+}
+.main-head-3xl{
+  font-size: 4rem;
+  margin-bottom: 0px;
+  font-weight: 700;
+  line-height: 4.8rem;
+}
 .main-bg-head{
   font-size: 3.25rem;
   margin-bottom: 0px;
@@ -142,6 +154,12 @@ padding-top: 40px;
 }
 .main-color{
 color: $main-color  
+}
+.max-w-600{
+  max-width: 600px;
+}
+.fs-sm{
+  font-size: calc(.9375rem + .52941vw);
 }
 .main-bg{
   background-color: $main-color

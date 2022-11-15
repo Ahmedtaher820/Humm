@@ -3,10 +3,11 @@
   .cate-cover.my-5
       img(:src="getImages(categoryTranslations.cover.id)").full-w
   .cate-content
-      h1.main-head.text-center.mb-5 {{categoryTranslations.title}}
+      h1.main-head-2xl.text-center.mb-5 {{categoryTranslations.title}}
       .row.mb-5
           .col-xl-4.col-md-6(v-for="{id , user_created , slug,type,category,translations,date_created} in categoryData" :key="id").mb-md-3
               HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category" :translations="translations" , :date_created="date_created" :isOneItem="false" :moreItem="true")
+              
       div.mb-5
           HomeCompDisplayPosters(:posterCover="wideCover.id" :posterTitle="wideCover.title" :posterUrl="wideCover.url")
       
@@ -68,8 +69,8 @@ data.value.category[0].articles.forEach((e)=>{
   categoryData.value.push(e) 
 })
 categoryTranslations.value = data.value.category[0].translations[0]
-const wideCover = ref({})
 // get poster 
+const wideCover = ref({})
 const posters= getPosters().then((res)=>{
   wideCover.value = res.firstPoster.wide1Cover
 })
