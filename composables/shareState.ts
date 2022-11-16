@@ -8,3 +8,5 @@ export const useFoodSlug = ()=> useState(()=>[])
 export const useReadArt = () => useState(()=>[])
 // state for shows load more 
 export const useLoadShows = () => useState(()=>[])
+// state for epsiode in shows
+export const useEpsoide =() => useState(()=>[])

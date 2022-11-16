@@ -2,9 +2,9 @@
 .container.mb-2x.mt-2x.mx-auto
     .head.d-flex.justify-content-between.align-items-center.mb-2x
         h2.main-head البرامج
-        button.main-btn اعرف المزيد
+        NuxtLink(to="/shows").main-btn اعرف المزيد
     .row
-        .col-lg-6(v-for="show in shows" :key="show.id")
+        .col-lg-6(v-for="show in showsFound" :key="show.id")
             HomeCompShowDisplay(:item="show")
 </template>
 
@@ -39,12 +39,15 @@ query getShows($lang: String, $offset: Int, $limit: Int) {
 `;
 const variable = {lang:"ar-EG",  offset: 0,limit:4};
 const shows = useShows();
+const showsFound = ref([])
 if (shows.value.length === 0) {
-  const { data } = await useAsyncQuery(query, variable);
+  const { data  } = await useAsyncQuery(query, variable);
   data.value.shows.forEach((e)=>{
-    console.log(e)
     shows.value.push(e)
   })
+  showsFound.value = shows.value.slice(0,4)
+  }else{
+  showsFound.value = shows.value.slice(0,4)
 }
 
 </script>

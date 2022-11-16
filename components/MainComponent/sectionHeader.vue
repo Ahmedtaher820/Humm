@@ -2,7 +2,7 @@
 div.know-more-btn
     slot
     .head.d-flex.justify-content-between.align-items-center.mb-2x
-        h2.main-head {{sectionTitle}}
+        h2.main-head-2xl {{sectionTitle}}
         NuxtLink(:to="'/'+sectionLink" v-if="showLink")
             button.main-btn {{sectionBtnTxt}} #[img(src="/images/arrow.svg")]      
 </template>

@@ -4,7 +4,7 @@ export { useAsyncData, useLazyAsyncData, refreshNuxtData, clearNuxtData, defineN
 export { withCtx, withDirectives, withKeys, withMemo, withModifiers, withScopeId, onActivated, onBeforeMount, onBeforeUnmount, onBeforeUpdate, onDeactivated, onErrorCaptured, onMounted, onRenderTracked, onRenderTriggered, onServerPrefetch, onUnmounted, onUpdated, computed, customRef, isProxy, isReactive, isReadonly, isRef, markRaw, proxyRefs, reactive, readonly, ref, shallowReactive, shallowReadonly, shallowRef, toRaw, toRef, toRefs, triggerRef, unref, watch, watchEffect, isShallow, effect, effectScope, getCurrentScope, onScopeDispose, defineComponent, defineAsyncComponent, resolveComponent, getCurrentInstance, h, inject, nextTick, provide, useAttrs, useCssModule, useCssVars, useSlots, useTransitionState } from 'vue';
 export { default as getImages } from '../composables/getImages';
 export { getPosters } from '../composables/getPoster';
-export { useArticles, useMoreArticles, usePosters, useReadArticles, useShows, useBrands, useFoodSlug, useReadArt, useLoadShows } from '../composables/shareState';
+export { useArticles, useMoreArticles, usePosters, useReadArticles, useShows, useBrands, useFoodSlug, useReadArt, useLoadShows, useEpsoide } from '../composables/shareState';
 export { gql } from 'graphql-tag';
 export { useApollo, useAsyncQuery, useLazyAsyncQuery } from '../node_modules/@nuxtjs/apollo/dist/runtime/composables';
 export { useQuery, useLazyQuery, useMutation, useSubscription, useApolloClient, useQueryLoading, useMutationLoading, useSubscriptionLoading, useGlobalQueryLoading, useGlobalMutationLoading, useGlobalSubscriptionLoading } from '@vue/apollo-composable';

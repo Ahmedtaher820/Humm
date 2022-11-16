@@ -1,11 +1,14 @@
 <template lang="pug">
 .read.mt-5
   .container
-    KnowMoreFoodDescribe(:items='allDataa'  headerTitle="مقالات" :showHeader="true")
+    KnowMoreFoodDescribe(:items='allDataa' headerTitle="مقالات" :showHeader="true" :showLink="false")
     button.main-btn.d-block.mx-auto.my-4( @click="loadMore()" v-if="noMoreDataa") عرض المزيد 
 
 </template>
 <script setup lang="ts">
+useHead({
+  title:'احدث المقالات'
+})
 const limitt = ref(6);
 const noMoreDataa = ref(true);
 const recentFoodd = gql`

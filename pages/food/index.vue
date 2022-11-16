@@ -1,14 +1,17 @@
 <template lang="pug">
 .food.mt-5
   .container
-    KnowMoreFoodDescribe(:items='allData' :showHeader="true" headerTitle="وصفات" sectionLink="food")
+    KnowMoreFoodDescribe(:items='allData' :showHeader="true"  headerTitle="وصفات" sectionLink="food")
     button.main-btn.d-block.mx-auto.my-5( @click="loadMore()" v-if="noMoreData") عرض المزيد 
 
 </template>
 
 <script lang="ts" setup>
+useHead({
+  title: "احدث الواصفات",
+});
 const offset = ref(0);
-const limit = ref(8);
+const limit = ref(6);
 const noMoreData = ref(true)
 const recentFood = gql`
 
@@ -51,28 +54,18 @@ const recentFood = gql`
 }
 `
 let variablees = {lang:"ar-EG",type:"food",limit:limit.value}
-const getFoods = useMoreArticles()
-const foods = ref([])
- function getAllArticles(){
-  if(getFoods.value.length > 0){
-    foods.value = getFoods.value
-  }else{
-    getData(variablees)
-    foods.value = getFoods.value
-  }
-}
-getAllArticles();
-async function getData(variablees:{lang:String , type:String , limit:Number}){
+const foodDef = ref([])
   const {data} = await useAsyncQuery(recentFood , variablees)
-  getFoods.value = data.value.Article
-}
-function loadMore(){
-  limit.value += 8
+  foodDef.value = data.value.Article
+
+async function loadMore(){
+  limit.value += 6
   variablees.limit = limit.value
-  getData(variablees)
+  const {data} = await useAsyncQuery(recentFood , variablees)
+  foodDef.value = data.value.Article
 }
 const allData = computed(()=>{
-  return getFoods.value
+  return foodDef.value
 })
 watch(()=> allData.value , (newVal,oldVal)=>{
   if(limit.value > allData.value.length ){

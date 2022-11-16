@@ -2,18 +2,19 @@
 .container(v-if="articleState.length > 0")
     MainComponentSectionHeader(sectionTitle="الواصفات" sectionLink="food")
     .row.under-line.main-pb
-        .col-xl-4.col-md-6.mb-3.mb-md-0(v-for="{id,user_created , slug,type,category,translations,date_created} in firstArtBlog" :key="id" )
+        .col-lg-4.col-md-6.mb-3.mb-lg-0(v-for="{id,user_created , slug,type,category,translations,date_created} in firstArtBlog" :key="id" )
             HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category",:translations="translations" , :date_created="date_created" :isOneItem="false" :moreItem="true" , :userInfo="true")
-    .row.main-pt.main-pb
-        .col-xl-4.col-md-6
+    .row.main-pt.main-pb.d-flex
+        .col-lg-4.col-md-6
             div(v-for="{user_created , slug,type,category,translations,date_created} in firstCol").mb-md-3
                 HomeCompFoodBox(:userCreated="user_created" , :slug="slug" , :type="type" , :category="category" :translations="translations" , :date_created="date_created" :isOneItem="false" :moreItem="true")
         .col-xl-4.col-md-6.position-relative
-            NuxtLink(:to="type+'/'+slug" v-for="{id,user_created , slug,type,category,translations,date_created } in secondCol" :key="id").article-content.alone.d-flex.flex-column.gap-2.position-relative.position-lg-absolute.main-trans
+            NuxtLink(:to="type+'/'+slug" v-for="{id,user_created , slug,type,category,translations,date_created } in secondCol" :key="id").article-content.alone.d-flex.flex-column.gap-2.position-relative.position-md-absolute.main-trans
                 div
                     img(:src="getImages(translations[0].cover.id)").art-img.main-trans
                 .content.d-flex.flex-column.gap-2.px-3
                     .art-type: NuxtLink(:to="`/food/category/${category.slug}`") {{category.translations[0].title}}
+                    h5(class="mb-0") {{translations[0].title}}
                     div.d-flex.gap-2.user-info.flex-column
                         div
                             svg(id="user-6-line" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24")

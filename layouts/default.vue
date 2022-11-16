@@ -10,7 +10,7 @@ const description = ref("food website provide for every one");
 // const {t , locale} = useI18n()
 // let appDir = locale.value == "ar" ? "rtl" : "ltr"
 useHead({
-  titleTemplate:  "Humm - %s",
+  titleTemplate:  "همم - %s",
   meta: [
     {
       charset: "utf-8",

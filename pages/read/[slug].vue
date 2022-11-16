@@ -12,7 +12,7 @@ template(v-if="data.Article.length !== 0")
                     HomeCompDisplayPosters(:posterCover="normal2Cover.id" :posterTitle="normal2Cover.title" :posterUrl="normal2Cover.url").full-w
             .col-12.my-5
               HomeCompDisplayPosters(:posterCover="wideCover.id" :posterTitle="wideCover.title" :posterUrl="wideCover.url").cursor-p        
-        KnowMoreFoodDescribe(:items="useRead" , sectionLink='read'  :dataEnded="true" headerTitle="احدث المقالات")
+        KnowMoreFoodDescribe(:items="useRead" , sectionLink='read', :showLink="true" :showHeader="true" :dataEnded="true" sectionTitle="احدث المقالات")
 template(v-else)
     .container 
         h1.my-5.text-center Category Not Found

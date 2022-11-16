@@ -13,7 +13,9 @@
       
 </template>
 <script setup lang="ts">
+
 import {getPosters} from "../../../composables/getPoster"
+
 const route = useRoute()
 const categoryData = ref([])
 const categoryTranslations = ref([])
@@ -64,7 +66,7 @@ const cateQuery = gql`
   }
 `
 const cateVariables = {lang:'ar-EG',type:"food" ,  limit:8 , slug:route.params.slug}
-const {data,pending} = await useAsyncQuery(cateQuery , cateVariables)
+const {data} = await useAsyncQuery(cateQuery , cateVariables)
 data.value.category[0].articles.forEach((e)=>{
   categoryData.value.push(e) 
 })

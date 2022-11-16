@@ -1,7 +1,6 @@
 <template lang="pug">
 div.show-slug
-    .container 
-        |{{loadShows.translations[0].title}}
+    .container
         .show-slug-img.my-5
             img(:src="getImages(loadShows.translations[0].cover.id,'?fit=cover&width=1350&height=450&quality=80')" :alt="loadShows.translations[0].title").full-w
         .show-content.text-center.max-w-600.mx-auto.mt-5.mb-3
@@ -11,9 +10,9 @@ div.show-slug
                 svg(id="time-line" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" )
                       path(id="Path_35236" data-name="Path 35236" d="M0,0H24V24H0Z" fill="none")
                       path(id="Path_35237" data-name="Path 35237" d="M12,22A10,10,0,1,1,22,12,10,10,0,0,1,12,22Zm0-2a8,8,0,1,0-8-8A8,8,0,0,0,12,20Zm1-8h4v2H11V7h2Z") 
-                span.fw-lighter 10 الحلقات
+                span.fw-light 10 الحلقات
         .show-episodes.mb-5
-              KnowMoreFoodDescribe(:showHeader="false" :showHeadUrl="loadShows.translations[0].title" :items="episodes" , sectionLink='read'  :dataEnded="true" :isShow="true")
+              KnowMoreFoodDescribe(:showHeader="false" :isHead="false" :showHeadUrl="loadShows.translations[0].title" :items="episodes" , sectionLink='read'  :dataEnded="true" :isShow="true")
               button.main-btn.d-block.mx-auto.my-4( @click="loadMore()" v-if="noMoreDataa") عرض المزيد 
         div.mb-5
           HomeCompDisplayPosters(:posterCover="wideCover.id" :posterTitle="wideCover.title" :posterUrl="wideCover.url")

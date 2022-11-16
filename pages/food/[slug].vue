@@ -10,7 +10,7 @@ template(v-if="isSlug[0]")
                 .col-lg-8
                     .slug-content.flex.flex-column.gap-3
                         a(:href="'./category/'+isSlug[0].category.slug").cate-title.main-border.main-trans.main-color.px-4.py-2.mb-3.d-inline-block {{isSlug[0].category.translations[0].title}}
-                        h2.pb-3 {{isSlug[0].translations[0].title}}
+                        h2.pb-3.main-head-2xl {{isSlug[0].translations[0].title}}
                         .user.align-item.justify-content-between.flex-column.flex-md-row.justify-content-start.py-3
                           div.date-box.align-item.gap-2
                             div
@@ -45,7 +45,7 @@ template(v-if="isSlug[0]")
                         HomeCompDisplayPosters(:posterCover="normal2Cover.id" :posterTitle="normal2Cover.title" :posterUrl="normal2Cover.url").cursor-p
                 .col-md-12.my-5
                     HomeCompDisplayPosters(:posterCover="wideCover.id" :posterTitle="wideCover.title" :posterUrl="wideCover.url").cursor-p
-        KnowMoreFoodDescribe(:items="foods" , sectionLink='food'  :dataEnded="true")
+        KnowMoreFoodDescribe(:items="foods" , sectionLink='food', :showLink="true" :showHeader="true" :dataEnded="true")
 </template>
 
 <script lang="ts" setup>
@@ -88,15 +88,19 @@ let q = gql`
   }
 }
 `
+const pend = ref(false)
 if(isSlug.value[0]?.slug == route.params.slug){
 console.log(isSlug.value[0].translations[0].content)
 }
 else{
     isSlug.value = []
     const variablee = {lang:"ar-EG" , slug:route.params.slug}
-    const {data} = await useAsyncQuery(q , variablee)
+    const {data } = await useAsyncQuery(q , variablee)
     isSlug.value.push(data.value.Article[0])
 }
+watch(pend , (newVal , oldVal)=>{
+  pend.value = newVal
+})
 // get posters 
 const normal1Cover = ref({})
 const normal2Cover = ref({})
@@ -142,7 +146,7 @@ const variablees = {lang:"ar-EG",type:"food",limit:limit.value}
 const getFoods = useArticles()
 const foods = ref([])
 if(getFoods.value.length > 0){
-  foods.value = getFoods.value
+  foods.value = getFoods.value.slice(0,6)
 }else{
   const {data} = await useAsyncQuery(recentFood , variablees)
   console.log(data.value)
@@ -153,47 +157,6 @@ if(getFoods.value.length > 0){
 
 <style lang="scss">
 .food{
-  .vedio-container {
-    width: 100%;
-    min-height: 600px;
-    .embed-responsive{
-      position: relative;
-      top: 0px;
-      overflow: hidden;
-      padding: 0px;
-      width: 100%;
-      display: block;
-      height: 600px;
-    }
-    iframe{
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      bottom: 0px;
-      border: 0px;
-    }
-  }
-  .cate-title{
-    border-radius: 30px;
-    font-size: 20px;
-    font-weight: 700;
-    &:hover{
-      background-color: $main-color;
-      color: $second-color;
-    }
-   
-  }
-  .poster-img{
-    a{
-      position: relative;
-      display: block;
-      min-height: 200px;
-      img{
-        position: absolute;
-        inset: 0;
-
-      }
-    }
-  }
+@import "../../assets/css/scss/layouts/vedioPage";
 }
 </style>

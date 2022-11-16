@@ -1,14 +1,18 @@
 <template lang="pug">
 .shows
     .container.mx-auto
-        .show-episodes.mb-5
-            KnowMoreFoodDescribe(:showHeader="false" :showHeadUrl="shows[0].translations.title" :items="shows" , sectionLink='read'  :dataEnded="true" :isShow="true")
-        button.main-btn.d-block.mx-auto.my-4( @click="loadMore()" v-if="noMoreDataa") عرض المزيد 
+        .show-episodes.my-5
+            KnowMoreFoodDescribe(:showHeader="true" :isHead="true" :showLink="false" sectionTitle="برامج" :showHeadUrl="shows[0].translations.title" :items="shows" ,   :dataEnded="true" :isShow="true")
         div.mb-5
-        //- HomeCompDisplayPosters(:posterCover="wideCover.id" :posterTitle="wideCover.title" :posterUrl="wideCover.url")
+          HomeCompDisplayPosters(:posterCover="wideCover.id" :posterTitle="wideCover.title" :posterUrl="wideCover.url")
 </template>
     
 <script lang="ts" setup>
+  import {getPosters} from "../../composables/getPoster";
+useHead({
+  title:'احدث البرامج'
+})
+const noMoreDataa = ref(true)
     const query = gql`
     query getShows($lang: String, $offset: Int, $limit: Int) {
         shows(
@@ -19,7 +23,6 @@
           limit: $limit
           sort: "date_created"
         ) {
-          id
           slug
           user_created {
             first_name
@@ -37,8 +40,10 @@
         }
       }
     `;
-    const variable = {lang:"ar-EG",  offset: 0,limit:4};
+    // here use limit = 5 ==> because item 6 it's cover is null
+    const variable = {lang:"ar-EG",  offset: 0,limit:5};
     const shows = useShows();
+    
     if (shows.value.length === 0) {
       const { data } = await useAsyncQuery(query, variable);
       data.value.shows.forEach((e)=>{
@@ -46,7 +51,13 @@
         shows.value.push(e)
       })
     }
-    
+// get posters
+const wideCover = ref({})
+getPosters().then((res)=>{
+    wideCover.value = res.firstPoster.wide1Cover
+})
+
+
     </script>
     <style lang="scss" scoped>
     .main-btn {

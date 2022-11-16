@@ -3,7 +3,7 @@ NuxtLink(:to="'shows/'+item.slug").article-content-show.d-flex.gap-2.main-trans.
       img( :src="`https://board.humm.world/assets/${item.translations[0].cover.id}?fit=cover&quality=80`" loading="lazy" :alt="item.translations[0].title").main-trans
       .content.d-flex.flex-column.justify-content-center.text-light.text-center.text-lg-end
           h3.mb-1 {{item.translations[0].title}}
-          p {{item.translations[0].description}}
+          p {{item.translations[0].description}} 
 </template>
   
   <script lang="ts" setup>

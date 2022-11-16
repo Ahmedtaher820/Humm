@@ -14,7 +14,7 @@ div.index
             HomeCompDisplayPosters(:posterCover="firstPoster.wide1Cover.id" :posterTitle="firstPoster.wide1Cover.title" :posterUrl="firstPoster.wide1Cover.url")
     section.main-pb
       HomeCompReadArt
-    section.auto-line.mb-2x.mt-2x
+    section.auto-line.mb-2x.mt-2x.d-none.d-lg-block
       HomeCompAdSlider
     section.press.mb-2x.mt-2x
       HomeCompPress(:firstArtBlog="firstArtBlog" , :normal1Cover="firstPoster.normal1Cover" , :normal2Cover="firstPoster.normal2Cover")

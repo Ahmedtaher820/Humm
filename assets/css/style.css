@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 .header .logo img {
   width: 180px;
 }
@@ -63,7 +64,7 @@
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
-  font-family: sans-serif, "Tahoma";
+  font-family: "Roboto", sans-serif, "Tahoma";
 }
 
 html {

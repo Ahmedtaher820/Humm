@@ -1,6 +1,6 @@
 <template lang="pug">
 NuxtLink(:to="posterUrl").poster-link
-    img(:src="getImages(posterCover)" loading="lazy" :alt="posterTitle").full-w.show-img.main-trans  
+    img(:src="getImages(posterCover)" loading="lazy" :alt="posterTitle").full-w.show-img.main-trans
 </template>
 
 <script lang="ts" setup>
